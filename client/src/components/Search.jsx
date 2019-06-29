@@ -7,17 +7,21 @@ export default class Search extends Component {
     this.state = {
       companies: [],
       selected: '',
-      value: ''
+      amount: ''
     };
+    this.addCompany = this.addCompany.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.addCompany = this.addCompany.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   //get company names from db and update companies list
   updateCompanies() {
     Axios.get('/companies')
       .then(({ data }) => {
-        this.setState({ companies: data });
+        this.setState({
+          companies: data,
+          selected: data[0].companyName
+        });
       })
       .catch(err => {
         console.log(err);
@@ -50,14 +54,24 @@ export default class Search extends Component {
   }
 
   handleChange(e) {
-    this.setState({ value: e.target.value });
+    this.setState({ amount: e.target.value });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const { selected, amount } = this.state;
+    Axios.post('/bills', {
+      companyName: selected,
+      amount: amount
+    }).then(() => {
+      this.props.handleUpdate().catch(err => console.log(err));
+    });
+  }
   render() {
-    const { companies, selected, value } = this.state;
+    const { companies, selected, amount } = this.state;
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <label>
             Company:
             <select value={selected} onChange={this.handleSelect}>
@@ -69,7 +83,7 @@ export default class Search extends Component {
           </label>
           <label>
             Amount:
-            <input type='number' value={value} onChange={this.handleChange} />
+            <input type='number' value={amount} onChange={this.handleChange} />
             <input type='submit' value='Submit' />
           </label>
         </form>

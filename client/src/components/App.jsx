@@ -14,13 +14,13 @@ export default class App extends React.Component {
 
   updateList(companyName) {
     let url = companyName ? `/bills/${companyName}` : `/bills`;
-    Axios.get(url).then(({ data }) => {
+    return Axios.get(url).then(({ data }) => {
       this.setState({ bills: data });
     });
   }
 
   componentDidMount() {
-    this.updateList();
+    this.updateList().catch(err => console.log(err));
   }
 
   render() {
@@ -28,7 +28,7 @@ export default class App extends React.Component {
     return (
       <div className='container'>
         <h2>Add Bill:</h2>
-        <Search />
+        <Search handleUpdate={this.updateList} />
         <h2>My Bills:</h2>
         <Bills bills={bills} />
       </div>
