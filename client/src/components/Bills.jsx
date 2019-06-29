@@ -13,7 +13,7 @@ export default function Bills({ bills }) {
         </thead>
         <tbody>
           {bills.map(bill => {
-            <BillEntry key={bill.date} bill={bill} />;
+            return <BillEntry key={bill.id} bill={bill} />;
           })}
         </tbody>
       </table>
