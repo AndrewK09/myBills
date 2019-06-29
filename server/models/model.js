@@ -12,11 +12,12 @@ module.exports = {
     db.query(sql, [companyName], callback);
   },
   addBill: ({ companyName, amount }, callback) => {
-    let sql = `INSERT INTO bills (companyID, amount)
+    let date = generateDate();
+    let sql = `INSERT INTO bills (companyID, amount, datePaid)
                 VALUES (
                   (SELECT id FROM companies WHERE companyName = ?),
-                    ?)`;
-    db.query(sql, [companyName, amount], callback);
+                    ?, ?)`;
+    db.query(sql, [companyName, amount, date], callback);
   },
   getBills: ({ companyName }, callback) => {
     let sql = `SELECT c.companyName, b.amount, b.datePaid 
@@ -25,4 +26,9 @@ module.exports = {
                     WHERE c.companyName = ?`;
     db.query(sql, [companyName], callback);
   }
+};
+
+var generateDate = () => {
+  let date = new Date().toString();
+  return date.substring(4, 15);
 };

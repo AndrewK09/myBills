@@ -22,7 +22,7 @@ module.exports = {
     });
   },
   getBills: (req, res) => {
-    mode.getBills(req.body.company, (err, result) => {
+    model.getBills(req.params, (err, result) => {
       err ? handleErr(err, res) : res.send(result);
     });
   }

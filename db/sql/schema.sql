@@ -14,6 +14,6 @@ CREATE TABLE bills(
   id INT AUTO_INCREMENT,
   companyID INT NOT NULL,
   amount INT NOT NULL,
-  datePaid DATETIME DEFAULT NOW(), 
+  datePaid VARCHAR(255), 
   PRIMARY KEY(id)
 );
