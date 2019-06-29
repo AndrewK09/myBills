@@ -6,12 +6,14 @@ export default class Search extends Component {
     super(props);
     this.state = {
       companies: [],
-      selected: ''
+      selected: '',
+      value: ''
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.addCompany = this.addCompany.bind(this);
   }
-
+  //get company names from db and update companies list
   updateCompanies() {
     Axios.get('/companies')
       .then(({ data }) => {
@@ -26,33 +28,49 @@ export default class Search extends Component {
     this.updateCompanies();
   }
 
-  handleChange(e) {
-    this.setState({ selected: e.target.value });
+  //add company to db, then update company list and selected company
+  addCompany(companyName) {
+    Axios.post('/companies', { companyName })
+      .then(() => {
+        this.updateCompanies();
+      })
+      .then(() => {
+        this.setState({ selected: company });
+      });
+  }
+  //handle selected value, if selected is Other, propt adding of company
+  handleSelect(e) {
+    var selected = e.target.value;
+    if (e.target.value === 'Other') {
+      let company = prompt('Enter a company');
+      this.addCompany(company);
+    } else {
+      this.setState({ selected });
+    }
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    var selected = prompt('Enter a Company');
-    Axios.post('/companies', { companyName: selected })
-      .then(() => {
-        this.setState({ selected });
-      })
-      .catch(err => console.log(err));
+  handleChange(e) {
+    this.setState({ value: e.target.value });
   }
 
   render() {
-    const { companies, selected } = this.state;
+    const { companies, selected, value } = this.state;
     return (
       <div>
         <form>
           <label>
             Company:
-            <select value={selected} onChange={this.handleChange}>
+            <select value={selected} onChange={this.handleSelect}>
               {companies.map(company => {
                 return <Company key={company.id} company={company} />;
               })}
+              <option value='Other'>Other</option>
             </select>
-            <button onClick={this.handleClick}>Add Company</button>
+          </label>
+          <label>
+            Amount:
+            <input type='number' value={value} onChange={this.handleChange} />
+            <input type='submit' value='Submit' />
           </label>
         </form>
       </div>
