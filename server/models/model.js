@@ -23,11 +23,18 @@ module.exports = {
     let sql = `SELECT b.id, c.companyName, b.amount, b.datePaid 
                 FROM bills b INNER JOIN companies c
                  ON c.id = b.companyId
-                  ORDER BY b.id DESC`;
+                  ORDER BY b.id DESC `;
+    db.query(sql, callback);
+  },
+  getAllBillsSorted: ({ col, order }, callback) => {
+    let sql = `SELECT b.id, c.companyName, b.amount, b.datePaid 
+                FROM bills b INNER JOIN companies c
+                 ON c.id = b.companyId
+                  ORDER BY ${getCol(col)} ${order} `;
     db.query(sql, callback);
   },
   getBills: ({ companyName }, callback) => {
-    let sql = `SELECT c.companyName, b.amount, b.datePaid 
+    let sql = `SELECT b.id, c.companyName, b.amount, b.datePaid 
                 FROM bills b INNER JOIN companies c
                   ON c.id = b.companyId
                     WHERE c.companyName = ?`;
@@ -40,4 +47,10 @@ var generateDate = () => {
   return date.substring(4, 15);
 };
 
-// `select c.companyname, b.id, b.amount, b.datepaid from bills b inner join companies c on b.id = c.id order by companyname asc;`
+var getCol = col => {
+  if (col === 'company') {
+    return 'c.companyName';
+  } else if (col === 'amount') {
+    return 'b.amount';
+  }
+};

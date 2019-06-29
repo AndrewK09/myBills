@@ -9,9 +9,9 @@ export default class App extends React.Component {
     this.state = {
       bills: [],
       sort: {
-        company: '',
-        amount: '',
-        date: ''
+        company: false,
+        amount: false,
+        date: false
       }
     };
     this.updateList = this.updateList.bind(this);
@@ -27,6 +27,8 @@ export default class App extends React.Component {
   componentDidMount() {
     this.updateList().catch(err => console.log(err));
   }
+
+  sortList(sortBy, order) {}
 
   render() {
     const { bills } = this.state;
