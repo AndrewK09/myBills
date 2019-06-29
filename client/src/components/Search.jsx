@@ -35,7 +35,7 @@ export default class Search extends Component {
         this.updateCompanies();
       })
       .then(() => {
-        this.setState({ selected: company });
+        this.setState({ selected: companyName });
       });
   }
   //handle selected value, if selected is Other, propt adding of company
