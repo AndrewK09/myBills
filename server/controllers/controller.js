@@ -1,22 +1,29 @@
 const model = require('../models/model.js');
-const helpers = require('../helpers/apiHelpers.js');
+
+const handleErr = (err, res) => {
+  console.log(err);
+  res.sendStatus(500);
+};
 
 module.exports = {
   getCompanies: (req, res) => {
-    helpers.getCompanies().then(({ data }) => {
-      res.send(data.results);
+    model.getCompanies((err, result) => {
+      err ? handleErr(err, res) : res.send(result);
     });
   },
   addCompany: (req, res) => {
-    helpers
-      .addCompany(req.params.categoryId)
-      .then(({ data }) => {
-        console.log(data.results);
-        res.send(data.results);
-      })
-      .catch(err => {
-        console.log(err);
-        res.send('fail');
-      });
+    model.addCompany(req.body, (err, result) => {
+      err ? handleErr(err, res) : res.send('Added company');
+    });
+  },
+  addBill: (req, res) => {
+    model.addBill(req.body, (err, result) => {
+      err ? handleErr(err, res) : res.send('Added Bill');
+    });
+  },
+  getBills: (req, res) => {
+    mode.getBills(req.body.company, (err, result) => {
+      err ? handleErr(err, res) : res.send(result);
+    });
   }
 };

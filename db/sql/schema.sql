@@ -3,10 +3,10 @@ USE myBills;
 
 DROP TABLE IF EXISTS companies;
 CREATE TABLE companies(
-  id INT AUTO_INCREMENT,
-  companyName VARCHAR(255) NOT NULL 
-  PRIMARY KEY(id)
-  UNIQUE(companyName)
+  id INT AUTO_INCREMENT ,
+  companyName VARCHAR(255) NOT NULL,
+  PRIMARY KEY(id),
+  UNIQUE KEY(companyName)
 );
 
 DROP TABLE IF EXISTS bills;
@@ -14,6 +14,6 @@ CREATE TABLE bills(
   id INT AUTO_INCREMENT,
   companyID INT NOT NULL,
   amount INT NOT NULL,
-  datePaid DATE,
-  PRIMARY KEY(id),
+  datePaid DATETIME DEFAULT NOW(), 
+  PRIMARY KEY(id)
 );
