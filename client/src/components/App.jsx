@@ -7,7 +7,12 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bills: []
+      bills: [],
+      sort: {
+        company: '',
+        amount: '',
+        date: ''
+      }
     };
     this.updateList = this.updateList.bind(this);
   }

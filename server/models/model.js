@@ -22,7 +22,8 @@ module.exports = {
   getAllBills: callback => {
     let sql = `SELECT b.id, c.companyName, b.amount, b.datePaid 
                 FROM bills b INNER JOIN companies c
-                 ON c.id = b.companyId`;
+                 ON c.id = b.companyId
+                  ORDER BY b.id DESC`;
     db.query(sql, callback);
   },
   getBills: ({ companyName }, callback) => {
@@ -38,3 +39,5 @@ var generateDate = () => {
   let date = new Date().toString();
   return date.substring(4, 15);
 };
+
+// `select c.companyname, b.id, b.amount, b.datepaid from bills b inner join companies c on b.id = c.id order by companyname asc;`

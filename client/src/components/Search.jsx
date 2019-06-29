@@ -64,7 +64,12 @@ export default class Search extends Component {
       companyName: selected,
       amount: amount
     }).then(() => {
-      this.props.handleUpdate().catch(err => console.log(err));
+      this.props
+        .handleUpdate()
+        .then(() => {
+          this.setState({ amount: '' });
+        })
+        .catch(err => console.log(err));
     });
   }
   render() {
