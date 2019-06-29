@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Axios from 'axios';
 import Search from './Search.jsx';
 import Bills from './Bills.jsx';
 export default class App extends React.Component {
@@ -8,7 +9,20 @@ export default class App extends React.Component {
     this.state = {
       bills: []
     };
+    this.updateList = this.updateList.bind(this);
   }
+
+  updateList(companyName) {
+    let url = companyName ? `/bills/${companyName}` : `/bills`;
+    Axios.get(url).then(({ data }) => {
+      this.setState({ bills: data });
+    });
+  }
+
+  componentDidMount() {
+    this.updateList();
+  }
+
   render() {
     const { bills } = this.state;
     return (
