@@ -8,6 +8,8 @@ export default class Search extends Component {
       companies: [],
       selected: ''
     };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   updateCompanies() {
@@ -21,7 +23,21 @@ export default class Search extends Component {
   }
 
   componentDidMount() {
-    this.updateCompanies;
+    this.updateCompanies();
+  }
+
+  handleChange(e) {
+    this.setState({ selected: e.target.value });
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    var selected = prompt('Enter a Company');
+    Axios.post('/companies', { companyName: selected })
+      .then(() => {
+        this.setState({ selected });
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -31,7 +47,7 @@ export default class Search extends Component {
         <form>
           <label>
             Company:
-            <select value={selected}>
+            <select value={selected} onChange={this.handleChange}>
               {companies.map(company => {
                 return <Company key={company.id} company={company} />;
               })}
