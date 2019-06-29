@@ -20,7 +20,7 @@ module.exports = {
     db.query(sql, [companyName, amount, date], callback);
   },
   getAllBills: callback => {
-    let sql = `SELECT c.companyName, b.amount, b.datePaid 
+    let sql = `SELECT b.id, c.companyName, b.amount, b.datePaid 
                 FROM bills b INNER JOIN companies c
                  ON c.id = b.companyId`;
     db.query(sql, callback);
