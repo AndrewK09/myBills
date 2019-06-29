@@ -21,6 +21,11 @@ module.exports = {
       err ? handleErr(err, res) : res.send('Added Bill');
     });
   },
+  getAllBills: (req, res) => {
+    model.getAllBills((err, result) => {
+      err ? handleErr(err, res) : res.send(result);
+    });
+  },
   getBills: (req, res) => {
     model.getBills(req.params, (err, result) => {
       err ? handleErr(err, res) : res.send(result);

@@ -13,8 +13,9 @@ export default class App extends React.Component {
     const { bills } = this.state;
     return (
       <div className='container'>
-        <h2>My Bills</h2>
+        <h2>Add Bill:</h2>
         <Search />
+        <h2>My Bills:</h2>
         <Bills bills={bills} />
       </div>
     );

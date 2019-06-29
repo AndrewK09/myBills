@@ -19,6 +19,12 @@ module.exports = {
                     ?, ?)`;
     db.query(sql, [companyName, amount, date], callback);
   },
+  getAllBills: callback => {
+    let sql = `SELECT c.companyName, b.amount, b.datePaid 
+                FROM bills b INNER JOIN companies c
+                 ON c.id = b.companyId`;
+    db.query(sql, callback);
+  },
   getBills: ({ companyName }, callback) => {
     let sql = `SELECT c.companyName, b.amount, b.datePaid 
                 FROM bills b INNER JOIN companies c
