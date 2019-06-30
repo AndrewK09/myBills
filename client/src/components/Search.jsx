@@ -45,6 +45,7 @@ export default class Search extends Component {
   //handle selected value, if selected is Add Company, propt adding of company
   handleSelect(e) {
     var selected = e.target.value;
+    console.log(e.target.value);
     if (e.target.value === 'Add Company') {
       let company = prompt('Enter a company');
       this.addCompany(company);
@@ -77,15 +78,21 @@ export default class Search extends Component {
           <label>
             Company:
             <select value={selected} onChange={this.handleSelect}>
+              <option value='' />
+              <option value='Add Company'>Add Company</option>
               {companies.map(company => {
                 return <Company key={company.id} company={company} />;
               })}
-              <option value='Add Company'>Add Company</option>
             </select>
           </label>
           <label>
             Amount:
-            <input type='number' value={amount} onChange={this.handleChange} />
+            <input
+              type='number'
+              step='0.01'
+              value={amount}
+              onChange={this.handleChange}
+            />
             <input type='submit' value='Submit' />
           </label>
         </form>

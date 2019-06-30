@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS bills;
 CREATE TABLE bills(
   id INT AUTO_INCREMENT,
   companyID INT NOT NULL,
-  amount INT NOT NULL,
+  amount decimal (10, 2) NOT NULL,
   datePaid VARCHAR(255), 
   PRIMARY KEY(id)
 );
