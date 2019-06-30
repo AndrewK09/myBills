@@ -28,7 +28,7 @@ export default class App extends React.Component {
   }
 
   //update bills list, if list was filtered, update filtered state, if list was sorted, sort the new list too
-  updateList(companyName) {
+  updateList() {
     const { filteredBy, sortBy } = this.state;
     let url = filteredBy ? `/bills/${filteredBy}` : `/bills`;
     return Axios.get(url).then(({ data }) => {

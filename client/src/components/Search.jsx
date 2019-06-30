@@ -20,7 +20,7 @@ export default class Search extends Component {
       .then(({ data }) => {
         this.setState({
           companies: data,
-          selected: data[0].companyName
+          selected: ''
         });
       })
       .catch(err => {
@@ -36,11 +36,12 @@ export default class Search extends Component {
   addCompany(companyName) {
     Axios.post('/companies', { companyName })
       .then(() => {
-        this.updateCompanies();
+        return this.updateCompanies();
       })
       .then(() => {
         this.setState({ selected: companyName });
-      });
+      })
+      .catch(err => console.log(err));
   }
   //handle selected value, if selected is Add Company, propt adding of company
   handleSelect(e) {
@@ -52,7 +53,7 @@ export default class Search extends Component {
       this.setState({ selected });
     }
   }
-
+  //handle amount typed into input
   handleChange(e) {
     this.setState({ amount: e.target.value });
   }
