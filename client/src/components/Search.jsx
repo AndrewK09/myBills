@@ -16,7 +16,7 @@ export default class Search extends Component {
   }
   //get company names from db and update companies list
   updateCompanies() {
-    Axios.get('/companies')
+    return Axios.get('/companies')
       .then(({ data }) => {
         this.setState({
           companies: data,
@@ -78,10 +78,10 @@ export default class Search extends Component {
             Company:
             <select value={selected} onChange={this.handleSelect}>
               <option value='' />
-              <option value='Add Company'>Add Company</option>
               {companies.map(company => {
                 return <Company key={company.id} company={company} />;
               })}
+              <option value='Add Company'>Add Company</option>
             </select>
           </label>
           <label>
