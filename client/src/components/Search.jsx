@@ -56,16 +56,16 @@ export default class Search extends Component {
   handleChange(e) {
     this.setState({ amount: e.target.value });
   }
-
+  //if state is filterd, pass in filterd value
   handleSubmit(e) {
     e.preventDefault();
     const { selected, amount } = this.state;
+    const { handleUpdate, ordered } = this.props;
     Axios.post('/bills', {
       companyName: selected,
       amount: amount
     }).then(() => {
-      this.props
-        .handleUpdate()
+      handleUpdate(ordered.filterBy)
         .then(() => {
           this.setState({ amount: '' });
         })

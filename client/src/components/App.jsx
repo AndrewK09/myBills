@@ -4,11 +4,16 @@ import Axios from 'axios';
 import Search from './Search.jsx';
 import Bills from './Bills.jsx';
 import Filter from './Filter.jsx';
+import helpers from '../helperFunctions.js';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bills: []
+      bills: [],
+      ordered: {
+        sortBy: false,
+        filterBy: false
+      }
     };
     this.updateList = this.updateList.bind(this);
     this.updateListSorted = this.updateListSorted.bind(this);
@@ -26,24 +31,28 @@ export default class App extends React.Component {
   }
 
   //get bills sorted, update bills list and sorted value for that col
-  updateListSorted(col, order) {
-    console.log(col);
-    // Axios.get(`/bills/sort/${col}/${order}`).then(result => {
-    //   this.setState({
-    //     bills: result,
-    //     [col]: !col
-    //   });
-    // });
+  updateListSorted(colAndOrder) {
+    let col = colAndOrder.split(' ')[0];
+    let order = colAndOrder.split(' ')[1];
+    let sortedBills = helpers.sort(this.state.bills, col, order);
+    this.setState({
+      sortBy: colAndOrder,
+      bills: sortedBills
+    });
   }
 
   render() {
-    const { bills, sort } = this.state;
+    const { bills, ordered } = this.state;
     return (
       <div className='container'>
         <h2>Add Bill:</h2>
-        <Search handleUpdate={this.updateList} />
+        <Search handleUpdate={this.updateList} ordered={ordered} />
         <h2>My Bills:</h2>
-        <Filter handleSort={this.updateListSorted} />
+        <Filter
+          handleSort={this.updateListSorted}
+          handleFilter={this.updateList}
+          ordered={ordered}
+        />
         <Bills bills={bills} />
       </div>
     );
