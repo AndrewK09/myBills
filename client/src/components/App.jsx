@@ -68,7 +68,7 @@ export default class App extends React.Component {
           updateList={this.updateList}
           updateSearch={this.updateSearch}
         />
-        <Bills bills={bills} />
+        <Bills bills={bills} updateList={this.updateList} />
       </div>
     );
   }

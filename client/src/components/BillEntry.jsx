@@ -11,8 +11,7 @@ export default class BillEntry extends Component {
     e.preventDefault();
     Axios.delete('/bills', { data: { id: this.props.bill.id } })
       .then(() => {
-        //update the list
-        console.log('success');
+        this.props.updateList();
       })
       .catch(err => {
         console.log(err);

@@ -1,6 +1,6 @@
 import React from 'react';
 import BillEntry from './BillEntry.jsx';
-export default function Bills({ bills }) {
+export default function Bills({ bills, updateList }) {
   return (
     <div>
       <table>
@@ -14,7 +14,9 @@ export default function Bills({ bills }) {
         </thead>
         <tbody>
           {bills.map(bill => {
-            return <BillEntry key={bill.id} bill={bill} />;
+            return (
+              <BillEntry key={bill.id} bill={bill} updateList={updateList} />
+            );
           })}
         </tbody>
       </table>
