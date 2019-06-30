@@ -30,5 +30,10 @@ module.exports = {
     model.getBills(req.params, (err, result) => {
       err ? handleErr(err, res) : res.send(result);
     });
+  },
+  deleteBill: (req, res) => {
+    model.deleteBill(req.body, (err, result) => {
+      err ? handleErr(err, res) : res.send('Deleted');
+    });
   }
 };

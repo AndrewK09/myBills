@@ -32,6 +32,10 @@ module.exports = {
                   ON c.id = b.companyId
                     WHERE c.companyName = ?`;
     db.query(sql, [companyName], callback);
+  },
+  deleteBill: ({ id }, callback) => {
+    let sql = `DELETE FROM bills WHERE id = ?`;
+    db.query(sql, [id], callback);
   }
 };
 

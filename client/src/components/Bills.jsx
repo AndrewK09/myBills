@@ -9,6 +9,7 @@ export default function Bills({ bills }) {
             <th scope='col'>Company</th>
             <th scope='col'>Amount</th>
             <th scope='col'>Date</th>
+            <th scope='col'>Modify</th>
           </tr>
         </thead>
         <tbody>

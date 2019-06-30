@@ -6,5 +6,5 @@ router.post('/companies', controller.addCompany);
 router.get('/bills', controller.getAllBills);
 router.post('/bills', controller.addBill);
 router.get('/bills/:companyName', controller.getBills);
-
+router.delete('/bills', controller.deleteBill);
 module.exports = router;
