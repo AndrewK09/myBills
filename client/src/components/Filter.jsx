@@ -5,7 +5,7 @@ export default class Filter extends Component {
     super(props);
     this.state = {
       sortBy: '',
-      filterBy: '',
+      filteredBy: '',
       companies: []
     };
     this.handleChange = this.handleChange.bind(this);
@@ -28,14 +28,16 @@ export default class Filter extends Component {
   //Selecting a filter/sort updates selected values and calls filter/sort method
   handleChange(e) {
     const { name, value } = e.target;
-    const { handleFilter, handleSort } = this.props;
-    this.setState({ [name]: value });
-
-    name === 'filterBy' ? handleFilter(value) : handleSort(value);
+    const { updateList, handleSort, updateSearch } = this.props;
+    this.setState({ [name]: value }, () => {
+      updateSearch(name, value, () => {
+        name === 'filteredBy' ? updateList() : handleSort(value);
+      });
+    });
   }
 
   render() {
-    const { filterBy, sortBy, companies } = this.state;
+    const { filteredBy, sortBy, companies } = this.state;
     return (
       <div>
         <label>
@@ -51,7 +53,11 @@ export default class Filter extends Component {
         </label>
         <label>
           Filter By:
-          <select name='filterBy' value={filterBy} onChange={this.handleChange}>
+          <select
+            name='filteredBy'
+            value={filteredBy}
+            onChange={this.handleChange}
+          >
             <option value=''>No Filter</option>
             {companies.map(company => {
               const { id, companyName } = company;

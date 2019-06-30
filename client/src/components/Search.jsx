@@ -62,7 +62,7 @@ export default class Search extends Component {
     const { selected: companyName, amount } = this.state;
     Axios.post('/bills', { companyName, amount }).then(() => {
       this.props
-        .handleUpdate(this.props.filteredBy)
+        .handleUpdate()
         .then(() => {
           this.setState({ amount: '' });
         })
