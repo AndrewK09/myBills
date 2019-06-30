@@ -10,6 +10,9 @@
   },
   "author": "Andrew Kan",
   "license": "MIT",
+  "engines": {
+    "node": "10.16.0"
+  },
   "devDependencies": {
     "babel-core": "^6.23.3",
     "babel-loader": "^7.1.5",
