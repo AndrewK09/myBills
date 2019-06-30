@@ -10,16 +10,17 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       bills: [],
-      sortBy: false
+      sortBy: false,
+      filteredBy: false
     };
     this.updateList = this.updateList.bind(this);
     this.sortList = this.sortList.bind(this);
   }
-  //update bills list given company name, if list was sorted, sort the new list too
+  //update bills list, if list was filtered, update filtered state, if list was sorted, sort the new list too
   updateList(companyName) {
     let url = companyName ? `/bills/${companyName}` : `/bills`;
     return Axios.get(url).then(({ data }) => {
-      this.setState({ bills: data }, () => {
+      this.setState({ bills: data, filteredBy: companyName }, () => {
         if (this.state.sortBy) {
           this.sortList(this.state.sortBy);
         }
@@ -44,11 +45,11 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { bills } = this.state;
+    const { bills, filteredBy } = this.state;
     return (
       <div className='container'>
         <h2>Add Bill:</h2>
-        <Search handleUpdate={this.updateList} />
+        <Search handleUpdate={this.updateList} filteredBy={filteredBy} />
         <h2>My Bills:</h2>
         <Filter handleSort={this.sortList} handleFilter={this.updateList} />
         <Bills bills={bills} />

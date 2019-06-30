@@ -17,5 +17,9 @@ export default class BillEntry extends Component {
 }
 
 function toCurrency(number) {
-  return new Intl.NumberFormat('en-IN').format(number);
+  var test = new Intl.NumberFormat('en-IN', {
+    currency: 'USD',
+    minimumFractionDigits: 2
+  }).format(number);
+  return test;
 }
