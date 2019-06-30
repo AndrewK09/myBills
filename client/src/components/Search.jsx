@@ -45,7 +45,6 @@ export default class Search extends Component {
   //handle selected value, if selected is Add Company, propt adding of company
   handleSelect(e) {
     var selected = e.target.value;
-    console.log(e.target.value);
     if (e.target.value === 'Add Company') {
       let company = prompt('Enter a company');
       this.addCompany(company);
