@@ -26,5 +26,11 @@ module.exports = {
         return 0;
       }
     });
+  },
+
+  filter: (bills, company) => {
+    return bills.filter(bill => {
+      return bill.companyName === company;
+    });
   }
 };

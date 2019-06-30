@@ -13,16 +13,21 @@ export default class App extends React.Component {
       ordered: {
         sortBy: false,
         filterBy: false
-      }
+      },
+      sortBy: false
     };
     this.updateList = this.updateList.bind(this);
-    this.updateListSorted = this.updateListSorted.bind(this);
+    this.sortList = this.sortList.bind(this);
   }
   //update bills list given company name
   updateList(companyName) {
     let url = companyName ? `/bills/${companyName}` : `/bills`;
     return Axios.get(url).then(({ data }) => {
-      this.setState({ bills: data });
+      this.setState({ bills: data }, () => {
+        if (this.state.sortBy) {
+          this.sortList(this.state.sortBy);
+        }
+      });
     });
   }
 
@@ -31,28 +36,25 @@ export default class App extends React.Component {
   }
 
   //get bills sorted, update bills list and sorted value for that col
-  updateListSorted(colAndOrder) {
+  sortList(colAndOrder) {
     let col = colAndOrder.split(' ')[0];
     let order = colAndOrder.split(' ')[1];
-    let sortedBills = helpers.sort(this.state.bills, col, order);
+    sortedBills = helpers.sort(this.state.bills, col, order);
+
     this.setState({
-      sortBy: colAndOrder,
+      sortBy: colAndOrder || false,
       bills: sortedBills
     });
   }
 
   render() {
-    const { bills, ordered } = this.state;
+    const { bills, sortBy } = this.state;
     return (
       <div className='container'>
         <h2>Add Bill:</h2>
-        <Search handleUpdate={this.updateList} ordered={ordered} />
+        <Search handleUpdate={this.updateList} />
         <h2>My Bills:</h2>
-        <Filter
-          handleSort={this.updateListSorted}
-          handleFilter={this.updateList}
-          ordered={ordered}
-        />
+        <Filter handleSort={this.sortList} handleFilter={this.updateList} />
         <Bills bills={bills} />
       </div>
     );

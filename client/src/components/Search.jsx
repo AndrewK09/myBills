@@ -65,7 +65,7 @@ export default class Search extends Component {
       companyName: selected,
       amount: amount
     }).then(() => {
-      handleUpdate(ordered.filterBy)
+      handleUpdate()
         .then(() => {
           this.setState({ amount: '' });
         })

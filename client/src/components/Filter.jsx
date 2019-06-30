@@ -41,13 +41,12 @@ export default class Filter extends Component {
         <label>
           Sort By:
           <select name='sortBy' value={sortBy} onChange={this.handleChange}>
-            <option value='false' />
+            <option value='id desc'>Newest</option>
+            <option value='id asc'>Oldest</option>
             <option value='companyName asc'>Company asc.</option>
             <option value='companyName desc'>Company desc.</option>
             <option value='amount asc'>Amount asc.</option>
             <option value='amount desc'>Amount desc.</option>
-            <option value='id asc'>Date added asc.</option>
-            <option value='id desc'>Date added desc.</option>
           </select>
         </label>
         <label>
