@@ -9,9 +9,13 @@ export default class BillEntry extends Component {
     return (
       <tr>
         <td scope='col'>{companyName}</td>
-        <td scope='col'>${amount}</td>
+        <td scope='col'>${toCurrency(amount)}</td>
         <td scope='col'>{datePaid}</td>
       </tr>
     );
   }
+}
+
+function toCurrency(number) {
+  return new Intl.NumberFormat('en-IN').format(number);
 }
