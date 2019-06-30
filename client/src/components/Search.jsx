@@ -42,10 +42,10 @@ export default class Search extends Component {
         this.setState({ selected: companyName });
       });
   }
-  //handle selected value, if selected is Other, propt adding of company
+  //handle selected value, if selected is Add Company, propt adding of company
   handleSelect(e) {
     var selected = e.target.value;
-    if (e.target.value === 'Other') {
+    if (e.target.value === 'Add Company') {
       let company = prompt('Enter a company');
       this.addCompany(company);
     } else {
@@ -80,7 +80,7 @@ export default class Search extends Component {
               {companies.map(company => {
                 return <Company key={company.id} company={company} />;
               })}
-              <option value='Other'>Other</option>
+              <option value='Add Company'>Add Company</option>
             </select>
           </label>
           <label>

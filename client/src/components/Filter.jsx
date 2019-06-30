@@ -52,7 +52,7 @@ export default class Filter extends Component {
         <label>
           Filter By:
           <select name='filterBy' value={filterBy} onChange={this.handleChange}>
-            <option />>
+            <option value=''>No Filter</option>
             {companies.map(company => {
               const { id, companyName } = company;
               return (

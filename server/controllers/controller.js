@@ -26,11 +26,6 @@ module.exports = {
       err ? handleErr(err, res) : res.send(result);
     });
   },
-  getAllBillsSorted: (req, res) => {
-    model.getAllBillsSorted(req.params, (err, result) => {
-      err ? handleErr(err, res) : res.send(result);
-    });
-  },
   getBills: (req, res) => {
     model.getBills(req.params, (err, result) => {
       err ? handleErr(err, res) : res.send(result);

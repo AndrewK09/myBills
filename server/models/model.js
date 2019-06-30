@@ -26,13 +26,6 @@ module.exports = {
                   ORDER BY b.id DESC `;
     db.query(sql, callback);
   },
-  getAllBillsSorted: ({ col, order }, callback) => {
-    let sql = `SELECT b.id, c.companyName, b.amount, b.datePaid 
-                FROM bills b INNER JOIN companies c
-                 ON c.id = b.companyId
-                  ORDER BY ${getCol(col)} ${order} `;
-    db.query(sql, callback);
-  },
   getBills: ({ companyName }, callback) => {
     let sql = `SELECT b.id, c.companyName, b.amount, b.datePaid 
                 FROM bills b INNER JOIN companies c
@@ -45,12 +38,4 @@ module.exports = {
 var generateDate = () => {
   let date = new Date().toString();
   return date.substring(4, 15);
-};
-
-var getCol = col => {
-  if (col === 'company') {
-    return 'c.companyName';
-  } else if (col === 'amount') {
-    return 'b.amount';
-  }
 };

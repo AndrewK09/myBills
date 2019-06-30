@@ -31,7 +31,7 @@ export default class App extends React.Component {
     this.updateList().catch(err => console.log(err));
   }
 
-  //given a col and sort method, sort the bills and update sorted state and bills list
+  //given a col and order name, sort the bills, update sorted state and bills list
   sortList(colAndOrder) {
     let col = colAndOrder.split(' ')[0];
     let order = colAndOrder.split(' ')[1];
