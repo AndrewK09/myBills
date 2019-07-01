@@ -11,5 +11,5 @@ tfoot tr:last-child td {
 }
 
 tr:nth-child(even) {
-  background: rgb(216, 216, 216);
+  background: rgba(54, 153, 245, 0.212);
 }

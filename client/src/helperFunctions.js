@@ -32,5 +32,13 @@ module.exports = {
     return bills.filter(bill => {
       return bill.companyName === company;
     });
+  },
+
+  toCurrency(number) {
+    var USD = new Intl.NumberFormat('en-IN', {
+      currency: 'USD',
+      minimumFractionDigits: 2
+    }).format(number);
+    return USD;
   }
 };

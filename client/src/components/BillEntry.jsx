@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-
+import helpers from '../helperFunctions.js';
 export default class BillEntry extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +23,7 @@ export default class BillEntry extends Component {
     return (
       <tr>
         <td scope='col'>{companyName}</td>
-        <td scope='col'>${toCurrency(amount)}</td>
+        <td scope='col'>${helpers.toCurrency(amount)}</td>
         <td scope='col'>{datePaid}</td>
         <td scope='col'>
           <button
@@ -37,12 +37,4 @@ export default class BillEntry extends Component {
       </tr>
     );
   }
-}
-
-function toCurrency(number) {
-  var test = new Intl.NumberFormat('en-IN', {
-    currency: 'USD',
-    minimumFractionDigits: 2
-  }).format(number);
-  return test;
 }
