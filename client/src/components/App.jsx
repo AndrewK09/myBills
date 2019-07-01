@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import Search from './Search.jsx';
 import Bills from './Bills.jsx';
-import Filter from './Filter.jsx';
+import Modifier from './Modifier.jsx';
 import helpers from '../helperFunctions.js';
 export default class App extends React.Component {
   constructor(props) {
@@ -17,27 +16,22 @@ export default class App extends React.Component {
     this.updateSearch = this.updateSearch.bind(this);
     this.sortList = this.sortList.bind(this);
   }
-
-  updateSearch(modifier, value, callback) {
-    this.setState(
-      {
-        [modifier]: value
-      },
-      callback
-    );
+  //update state sortby and filterby values, then updates list
+  updateSearch(modifier, value) {
+    this.setState({ [modifier]: value }, this.updateList);
   }
 
-  //update bills list, if list was filtered, update filtered state, if list was sorted, sort the new list too
+  //update bills list depending on filter, if state is sorted, sort the new list too
   updateList() {
     const { filteredBy, sortBy } = this.state;
     let url = filteredBy ? `/bills/${filteredBy}` : `/bills`;
-    return Axios.get(url).then(({ data }) => {
-      this.setState({ bills: data }, () => {
-        if (sortBy) {
-          this.sortList(sortBy);
-        }
-      });
-    });
+    return Axios.get(url)
+      .then(({ data }) => {
+        this.setState({ bills: data }, () => {
+          if (sortBy) this.sortList(sortBy);
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   componentDidMount() {
@@ -57,13 +51,13 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { bills, filteredBy } = this.state;
+    const { bills } = this.state;
     return (
       <div className='container'>
         <h2>Add Bill:</h2>
         <Search handleUpdate={this.updateList} />
         <h2>My Bills:</h2>
-        <Filter
+        <Modifier
           handleSort={this.sortList}
           updateList={this.updateList}
           updateSearch={this.updateSearch}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-export default class Filter extends Component {
+export default class Modifier extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,14 +25,12 @@ export default class Filter extends Component {
   componentDidMount() {
     this.updateCompanies();
   }
-  //Selecting a filter/sort updates selected values and calls filter/sort method
+  //Selecting filter/sort updates selected values and updates list
   handleChange(e) {
     const { name, value } = e.target;
-    const { updateList, handleSort, updateSearch } = this.props;
+    const { updateSearch } = this.props;
     this.setState({ [name]: value }, () => {
-      updateSearch(name, value, () => {
-        name === 'filteredBy' ? updateList() : handleSort(value);
-      });
+      updateSearch(name, value);
     });
   }
 
